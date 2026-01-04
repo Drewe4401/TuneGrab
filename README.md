@@ -101,9 +101,3 @@ You can tweak the operation settings using environment variables.
 We steal for the thrill of the music, not for profit. This tool is for **personal use only**. Respect the artists who create the treasures you love. Do not distribute copyrighted material illegal.
 
 **Don't become the villain of your own story.**
-
----
-
-<p align="center">
-  <strong>TAKE YOUR TIME.</strong>
-</p>
