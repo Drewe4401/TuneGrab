@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TuneGrab - Snatch Your Tunes</title>
+    <meta name="description"
+        content="Grab YouTube videos and playlists as high-quality MP3 files. Fast, aggressive, unstoppable.">
+    <link rel="icon" type="image/x-icon" href="Assets/favicon.ico">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <!-- Animated Background -->
+    <div class="bg-animation">
+        <div class="noise-overlay"></div>
+        <div class="vignette"></div>
+    </div>
+
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="logo">
+                <img src="Assets/TuneGrab.png" alt="TuneGrab" class="logo-image">
+            </div>
+            <p class="tagline">Snatch Your Tunes From YouTube</p>
+        </header>
+
+        <!-- Main Card -->
+        <main class="main-card">
+            <!-- URL Input Section -->
+            <div class="input-section">
+                <h1 class="title">DROP THE LINK</h1>
+                <p class="subtitle">Videos & Playlists - We Grab 'Em All</p>
+
+                <div class="input-wrapper">
+                    <div class="input-icon">
+                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101"
+                                stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                            <path d="M10.172 13.828a4 4 0 005.656 0l4-4a4 4 0 10-5.656-5.656l-1.1 1.1"
+                                stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                        </svg>
+                    </div>
+                    <input type="text" id="urlInput" placeholder="Paste YouTube URL here..." autocomplete="off">
+                    <button id="clearBtn" class="clear-btn" style="display: none;">
+                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" />
+                        </svg>
+                    </button>
+                </div>
+
+                <button id="convertBtn" class="convert-btn">
+                    <span class="btn-text">GRAB IT</span>
+                    <span class="btn-icon">
+                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 5v14M19 12l-7 7-7-7" stroke="currentColor" stroke-width="3"
+                                stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                    </span>
+                </button>
+            </div>
+
+            <!-- Preview Section (hidden initially) -->
+            <div id="previewSection" class="preview-section" style="display: none;">
+                <div class="preview-header">
+                    <h2 class="preview-title">TARGET ACQUIRED</h2>
+                    <span id="previewType" class="preview-badge">Video</span>
+                </div>
+
+                <div id="previewContent" class="preview-content">
+                    <!-- Content will be populated by JS -->
+                </div>
+            </div>
+
+            <!-- Choice Section (hidden initially) - for video+playlist URLs -->
+            <div id="choiceSection" class="choice-section" style="display: none;">
+                <div class="choice-header">
+                    <h2 class="choice-title">WHAT'S THE TARGET?</h2>
+                    <p class="choice-subtitle">This link has both a video and playlist</p>
+                </div>
+
+                <div class="choice-options">
+                    <button id="choiceSingleBtn" class="choice-btn choice-single">
+                        <div class="choice-icon">
+                            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M9 18V6l12 6-12 6z" fill="currentColor" />
+                            </svg>
+                        </div>
+                        <div class="choice-info">
+                            <span class="choice-label">Single Track</span>
+                            <span id="choiceVideoTitle" class="choice-detail">Video title here</span>
+                        </div>
+                    </button>
+
+                    <button id="choicePlaylistBtn" class="choice-btn choice-playlist">
+                        <div class="choice-icon">
+                            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M19 9H5M19 5H5M19 13H5M13 17H5" stroke="currentColor" stroke-width="2"
+                                    stroke-linecap="round" />
+                            </svg>
+                        </div>
+                        <div class="choice-info">
+                            <span class="choice-label">Full Playlist</span>
+                            <span id="choicePlaylistInfo" class="choice-detail">X videos</span>
+                        </div>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Progress Section (hidden initially) -->
+            <div id="progressSection" class="progress-section" style="display: none;">
+                <div class="progress-header">
+                    <div class="progress-icon spinning">
+                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"
+                                stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                        </svg>
+                    </div>
+                    <div class="progress-info">
+                        <h3 id="progressTitle">GRABBING...</h3>
+                        <p id="progressSubtitle">Snatching your tunes</p>
+                    </div>
+                </div>
+
+                <div class="progress-bar-container">
+                    <div id="progressBar" class="progress-bar">
+                        <div class="progress-glow"></div>
+                    </div>
+                    <span id="progressPercent" class="progress-percent">0%</span>
+                </div>
+
+                <p id="currentFile" class="current-file"></p>
+            </div>
+
+            <!-- Results Section (hidden initially) -->
+            <div id="resultsSection" class="results-section" style="display: none;">
+                <div class="results-header">
+                    <div class="success-icon">
+                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="3" stroke-linecap="round"
+                                stroke-linejoin="round" />
+                        </svg>
+                    </div>
+                    <div class="results-info">
+                        <h3>GRABBED!</h3>
+                        <p id="resultsCount">1 file ready</p>
+                    </div>
+                </div>
+
+                <div id="filesList" class="files-list">
+                    <!-- Files will be populated by JS -->
+                </div>
+
+                <button id="newConversionBtn" class="new-conversion-btn">
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                    </svg>
+                    GRAB ANOTHER
+                </button>
+            </div>
+
+            <!-- Error Section (hidden initially) -->
+            <div id="errorSection" class="error-section" style="display: none;">
+                <div class="error-icon">
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" />
+                        <path d="M15 9l-6 6M9 9l6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                    </svg>
+                </div>
+                <h3>MISSED THE TARGET</h3>
+                <p id="errorMessage">Something went wrong.</p>
+                <button id="retryBtn" class="retry-btn">TRY AGAIN</button>
+            </div>
+        </main>
+
+        <!-- Features Section -->
+        <section class="features">
+            <div class="feature">
+                <div class="feature-icon">
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                </div>
+                <h3>LIGHTNING FAST</h3>
+                <p>Rip tracks at blazing speed</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M9 18V6l12 6-12 6z" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round" />
+                        <path d="M3 6h2v12H3V6z" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                    </svg>
+                </div>
+                <h3>PLAYLIST HEIST</h3>
+                <p>Grab entire playlists at once</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="2" />
+                        <path
+                            d="M12 2v4M12 18v4M4 12H2M22 12h-2M6.34 6.34L4.93 4.93M19.07 19.07l-1.41-1.41M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                    </svg>
+                </div>
+                <h3>CRISP QUALITY</h3>
+                <p>320kbps crystal clear audio</p>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>TuneGrab - Snatch Your Tunes</p>
+            <p class="disclaimer">For personal use only. Respect the artists.</p>
+        </footer>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+
+</html>
