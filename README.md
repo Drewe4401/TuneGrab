@@ -21,7 +21,17 @@ We have infiltrated the web to bring you a tool that snatches high-quality MP3s 
 ## ⚡ PALACE ABILITIES (Features)
 
 *   **🎭 The Showtime Attack**: Paste a link, click "GRAB IT", and watch the magic happen.
-*   **💎 Total Heist (Playlist Support)**: Why steal one treasure when you can take the whole vault? Downloads full playlists effortlessly.
+    <img src="public/Assets/main_ui.png" alt="Main Interface" width="600">
+
+*   **🎯 Target Selection**: Smartly detects if you want a single track or the whole playlist.
+    <img src="public/Assets/choice_ui.png" alt="Target Selection" width="600">
+
+*   **💎 Single Track Heist**: One-click download for individual songs.
+    <img src="public/Assets/single_result.png" alt="Single Track Download" width="600">
+
+*   **💰 Total Vault Heist**: Grabs entire playlists as a single ZIP file.
+    <img src="public/Assets/playlist_result.png" alt="Playlist Download" width="600">
+
 *   **🏎️ Morgana Speed**: Powered by `yt-dlp` for blazing fast extraction.
 *   **⏱️ Evidence Disposal**: All downloaded files self-destruct after **5 minutes**. We leave no trace behind.
 *   **🐳 Metaverse Ready**: Fully containerized with Docker. Deploy it on any server, anywhere.
